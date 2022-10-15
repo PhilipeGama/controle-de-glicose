@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-const userRoutes = require('./routers/users.router')
+const userRoutes = require('./routers/user.routers')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -16,7 +16,5 @@ app.use(userRoutes)
 app.listen(PORT, () => {
     console.log(`Running on ${PORT} ...`)
 })
-sequelize
-    // .sync({ force: true })
-    .sync()
-    .then((result) => {})
+
+sequelize.sync().then((result) => {})
