@@ -1,10 +1,55 @@
-const User = require('./models/user')
+const User = require('../models/user.model')
+const bcrypt = require('bcrypt')
+require('dotenv').config()
 
-const user = User.build({
-    name: 'teste',
-    username: 'teste1',
-    email: 'teste@teste.com',
-    password: '123',
-})
+const saltRounds = parseInt(process.env.SALT_ROUNDS)
 
-console.log(user)
+exports.findAll = async () => {
+    try {
+        return await User.findAll()
+    } catch (error) {
+        return null
+    }
+}
+
+exports.save = async (user) => {
+    console.log(user)
+    const hash = await bcrypt.hash(user.password, 10, (err, hash) => {})
+    try {
+        return await User.create(user)
+    } catch (error) {
+        return null
+    }
+}
+
+exports.update = async (id, user) => {
+    const hash = await bcrypt.hash(user.password, saltRounds, (err, hash) => {})
+
+    const userUpdate = {
+        name: user.name,
+        email: user.email,
+        password: hash,
+    }
+
+    try {
+        return await User.update(userUpdate, {
+            where: {
+                id: id,
+            },
+        })
+    } catch (error) {
+        return null
+    }
+}
+
+exports.destroy = async (id) => {
+    try {
+        return await User.destroy({
+            where: {
+                id: id,
+            },
+        })
+    } catch (error) {
+        return null
+    }
+}

@@ -5,9 +5,9 @@ const routers = express.Router()
 
 const userController = require('../controllers/user.controller')
 
-routers.get('/users', verifyJWT, userController.getUsers)
-routers.post('/users', userController.postUser)
-routers.put('/users/:id', userController.putUser)
-routers.delete('/users', userController.deleteUser)
+routers.get('/users', verifyJWT, userController.get)
+routers.post('/users', userController.post)
+routers.put('/users/:id', userController.put)
+routers.delete('/users/:id', userController.delete)
 
 module.exports = routers

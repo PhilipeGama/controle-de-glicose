@@ -13,10 +13,11 @@ module.exports = verifyJWT = (req, res, next) => {
     jwt.verify(token, secret, (err, decoded) => {
         if (err)
             return res.status(401).json({
-                auth: false,
-                message: 'Failed on authenticate token',
+                data: {
+                    auth: false,
+                    message: 'Failed on authenticate token',
+                },
             })
-
         next()
     })
 }

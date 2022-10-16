@@ -1,71 +1,79 @@
-const User = require('../models/user.model')
-const bcrypt = require('bcrypt')
-require('dotenv').config()
+const userService = require('../services/user.service')
 
-const saltRounds = parseInt(process.env.SALT_ROUNDS)
+exports.get = async (req, res, next) => {
+    const users = await userService.findAll()
 
-exports.getUsers = (req, res, next) => {
-    User.findAll()
-        .then((users) => {
-            res.send(users)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-}
-
-exports.postUser = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10, (err, hash) => {
-        const user = {
-            name: req.body.name,
-            email: req.body.email,
-            password: hash,
-        }
-        const userCreated = User.create(user)
-            .then((data) => {
-                console.log(data)
-                res.send(userCreated)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    })
-}
-
-exports.putUser = (req, res, next) => {
-    bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
-        const user = {
-            name: req.body.name,
-            email: req.body.email,
-            password: hash,
-        }
-        const userCreated = User.update(user, {
-            where: {
-                id: req.body.id,
+    if (!users) {
+        return res.status(500).json({
+            data: {
+                error: 'Internal Server Error',
             },
         })
-            .then((data) => {
-                console.log(data)
-                res.send(userCreated)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    })
+    }
+    if (users) {
+        return res.status(200).json({
+            data: {
+                users: users,
+            },
+        })
+    }
 }
 
-exports.deleteUser = (req, res, next) => {
-    const id = req.body.id
-    User.destroy({
-        where: {
-            id: id,
-        },
-    })
-        .then((data) => {
-            console.log(data)
-            res.send(userCreated)
+exports.post = async (req, res, next) => {
+    const userCreated = await userService.save(req.body)
+
+    if (!userCreated) {
+        return res.status(500).json({
+            data: {
+                error: 'Internal Server Error',
+            },
         })
-        .catch((err) => {
-            console.log(err)
+    }
+    if (userCreated) {
+        return res.status(201).json({
+            data: {
+                message: 'Created user succefully!',
+            },
         })
+    }
+}
+
+exports.put = async (req, res, next) => {
+    const userUpdated = await userService.update(req.params.id, req.body)
+    console.log(userUpdated)
+
+    if (!userUpdated) {
+        return res.status(500).json({
+            data: {
+                message: 'Internal Server Error',
+            },
+        })
+    }
+    if (userUpdated) {
+        return res.status(201).json({
+            data: {
+                message: 'User updated succesfully',
+            },
+        })
+    }
+}
+
+exports.delete = async (req, res, next) => {
+    const userDeleted = await userService.destroy(req.params.id)
+
+    if (!userDeleted) {
+        return res.status(500).json({
+            data: {
+                message: 'Internal Server Error',
+            },
+        })
+    }
+
+    if (userDeleted) {
+        return res.status(200).json({
+            data: {
+                message: 'User deleted succesfully',
+            },
+        })
+    }
 }

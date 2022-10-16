@@ -6,7 +6,7 @@ exports.login = async (req, res, next) => {
     if (auth === 'user_not_find' || auth === 'password_invalid') {
         return res.status(401).json({
             data: {
-                error: 'invalid_login',
+                error: 'Invalid login',
             },
         })
     }

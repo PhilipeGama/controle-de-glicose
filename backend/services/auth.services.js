@@ -26,7 +26,7 @@ exports.login = async (email, password) => {
 
     if (passwordMatch) {
         const token = jwt.sign({ id, email, name }, secret, {
-            expiresIn: 300,
+            expiresIn: 30000,
         })
         return token
     }
