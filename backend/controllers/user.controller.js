@@ -40,7 +40,6 @@ exports.post = async (req, res, next) => {
 
 exports.put = async (req, res, next) => {
     const userUpdated = await userService.update(req.params.id, req.body)
-    console.log(userUpdated)
 
     if (!userUpdated) {
         return res.status(500).json({
