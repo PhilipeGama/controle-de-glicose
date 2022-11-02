@@ -26,8 +26,6 @@ exports.uploadFile = async (req, res, next) => {
 
         glicoses.push(glicose)
     }
-
-    console.log(glicoses)
     try {
         const saveGlicose = await glicoseService.save(glicoses)
         res.send(saveGlicose)

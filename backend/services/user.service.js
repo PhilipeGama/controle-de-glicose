@@ -13,7 +13,6 @@ exports.findAll = async () => {
 }
 
 exports.save = async (user) => {
-    console.log(user)
     const hash = await bcrypt.hash(user.password, 10, (err, hash) => {})
     try {
         return await User.create(user)

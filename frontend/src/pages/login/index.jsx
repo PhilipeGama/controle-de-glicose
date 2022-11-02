@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { Link,  useNavigate } from "react-router-dom";
+import {  signIn } from "../../services/auth";
 import "./styles.css";
 
 const Login = () => {
     const [inputs, setInputs] = useState({})
+
+    let navigate = useNavigate()
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -10,9 +14,15 @@ const Login = () => {
         setInputs(values => ({...values, [name]: value}))
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        alert(JSON.stringify(inputs))
+        try {
+            await signIn(inputs.email, inputs.password);  
+            navigate("/")       
+        } catch (error) {
+            throw new ErrorEvent(error);
+        }
+     
     }
 
     return (
@@ -31,7 +41,6 @@ const Login = () => {
                         />
                     </div>
 
-
                     <div className="form-outline">
                         <label className="form-label" htmlFor="loginPassword">Senha</label>
                         <input 
@@ -45,16 +54,14 @@ const Login = () => {
                     <div className="row mb-4">
 
                         <div className="col-md-6">
-                            <a href="#!">Esqueceu a senha?</a>
+                            <Link>Esqueceu a senha?</Link>
                         </div>
                     </div>
 
-
                     <button type="submit" className="btn btn-primary btn-block mb-4">Entrar</button>
 
-
                     <div className="text-center">
-                        <p><a href="#!">Cadastra-se</a></p>
+                        <Link to="/register">Cadastra-se</Link>
                     </div>
                     </form>
                 </div>

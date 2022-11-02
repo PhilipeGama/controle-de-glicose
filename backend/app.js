@@ -1,12 +1,15 @@
 const express = require('express')
 const fileUpload = require('express-fileupload')
+var cors = require('cors')
 
 require('dotenv').config()
 const sequelize = require('./utils/database')
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT
+
 const app = express()
 
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(fileUpload())
