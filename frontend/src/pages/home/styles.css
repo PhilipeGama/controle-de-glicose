@@ -1,0 +1,9 @@
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 30px;
+}
+
+.d-flex {
+    gap: 20px;
+}
