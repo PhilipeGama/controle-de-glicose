@@ -20,7 +20,14 @@ export const signIn = async (email, password) => {
   try {
     const response = await api.post("/singin", { email, password });
     localStorage.setItem(TOKEN_KEY, response.data.data.token);
-    //return redirect("/");
+  } catch (error) {
+    return false;
+  }
+};
+
+export const signUp = async (name, email, password) => {
+  try {
+    await api.post("/signup", { name, email, password });
   } catch (error) {
     return false;
   }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link,  useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {  signIn } from "../../services/auth";
 import "./styles.css";
 
@@ -27,45 +27,41 @@ const Login = () => {
 
     return (
         <div className="container">  
-                <div className="tab-content">
-                <div className="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form onSubmit={handleSubmit}>
-                    <div className="form-outline mb-4">
-                        <label className="form-label" htmlFor="loginName">Email</label>
-                        <input 
-                            className="form-control"  
-                            type="email" 
-                            name="email" 
-                            value={inputs.email || ""} 
-                            onChange={handleChange} 
-                        />
-                    </div>
-
-                    <div className="form-outline">
-                        <label className="form-label" htmlFor="loginPassword">Senha</label>
-                        <input 
-                            className="form-control"  
-                            type="password" 
-                            name="password" 
-                            value={inputs.password || ""} 
-                            onChange={handleChange} 
-                        />
-                    </div>
-                    <div className="row mb-4">
-
-                        <div className="col-md-6">
-                            <Link>Esqueceu a senha?</Link>
-                        </div>
-                    </div>
-
-                    <button type="submit" className="btn btn-primary btn-block mb-4">Entrar</button>
-
-                    <div className="text-center">
-                        <Link to="/register">Cadastra-se</Link>
-                    </div>
-                    </form>
+            <form onSubmit={handleSubmit}>
+                <div className="form-outline mb-4">
+                    <label className="form-label" htmlFor="loginName">Email</label>
+                    <input 
+                        className="form-control"  
+                        type="email" 
+                        name="email" 
+                        value={inputs.email || ""} 
+                        onChange={handleChange} 
+                    />
                 </div>
+
+                <div className="form-outline">
+                    <label className="form-label" htmlFor="loginPassword">Senha</label>
+                    <input 
+                        className="form-control"  
+                        type="password" 
+                        name="password" 
+                        value={inputs.password || ""} 
+                        onChange={handleChange} 
+                    />
                 </div>
+                <div className="row mb-4">
+
+                    <div className="col-md-6">
+                        <Link>Esqueceu a senha?</Link>
+                    </div>
+                </div>
+
+                <button type="submit" className="btn btn-primary btn-block mb-4">Entrar</button>
+
+                <div className="text-center">
+                    <Link to="/register">Cadastra-se</Link>
+                </div>
+            </form>
         </div>
     )
 }

@@ -6,7 +6,7 @@ const routers = express.Router()
 const userController = require('../controllers/user.controller')
 
 routers.get('/users', verifyJWT, userController.get)
-routers.post('/users', userController.post)
+routers.post('/signup', userController.post)
 routers.put('/users/:id', userController.put)
 routers.delete('/users/:id', userController.delete)
 
