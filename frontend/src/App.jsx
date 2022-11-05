@@ -1,11 +1,12 @@
 import "./App.scss";
 
 import { Container } from "./pages";
-import Login from "./pages/login";
+import Login from "./pages/auth/login";
 import Home from "./pages/home";
-import Register from "./pages/register";
+import Register from "./pages/auth/register";
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import { isAuthenticated } from "./services/auth";
+
 
 const ProtectedRoute = ({ children }) => {
   if (!isAuthenticated()) {
@@ -16,7 +17,7 @@ const ProtectedRoute = ({ children }) => {
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       <Routes>
         <Route path="/" element={<Container />}>
           <Route

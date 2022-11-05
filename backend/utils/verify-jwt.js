@@ -7,7 +7,7 @@ module.exports = verifyJWT = (req, res, next) => {
     if (!token)
         return res.status(401).json({
             auth: false,
-            message: 'No token provided.',
+            message: 'No token provided',
         })
 
     jwt.verify(token, secret, (err, decoded) => {
@@ -21,3 +21,4 @@ module.exports = verifyJWT = (req, res, next) => {
         next()
     })
 }
+

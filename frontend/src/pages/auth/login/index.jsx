@@ -1,32 +1,66 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {  signIn } from "../../services/auth";
+import {  signIn } from "../../../services/auth";
+
 import "./styles.css";
+import * as yup from "yup";
 
 const Login = () => {
     const [inputs, setInputs] = useState({})
+    const [status, setStatus] = useState({})
 
     let navigate = useNavigate()
 
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
+        
         setInputs(values => ({...values, [name]: value}))
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        
+        if(!validateForm()) return
+
         try {
-            await signIn(inputs.email, inputs.password);  
-            navigate("/")       
-        } catch (error) {
-            throw new ErrorEvent(error);
-        }
+            const isAuth = await signIn(inputs.email, inputs.password);  
+            if(isAuth) {
+                navigate("/")  
+                return    
+            } else {
+                setStatus({
+                    type: "error",
+                    message: "Login inválido!"
+                })
+            }
+
+        } catch (error) { }
      
+    }
+
+    const validateForm = async () => {
+        let schema = yup.object().shape({
+            password: yup.string("Senha obrigatória!").required("Senha obrigatória!"),
+            email: yup.string("Email obrigatório!").email("Email inválido!").required("Email inválido!"),
+
+        });
+        try {
+            await schema.validate(inputs);
+            return true;
+        } catch (err) {
+            console.log(err)
+            setStatus({
+                type: "error",
+                message: err.errors
+            })
+            return false;
+        }
     }
 
     return (
         <div className="container">  
+            {status.type === "error" ? <div className="alert alert-danger" role="alert">{status.message}</div> : ""}
             <form onSubmit={handleSubmit}>
                 <div className="form-outline mb-4">
                     <label className="form-label" htmlFor="loginName">Email</label>
