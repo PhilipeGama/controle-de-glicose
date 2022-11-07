@@ -49,7 +49,6 @@ const Login = () => {
             await schema.validate(inputs);
             return true;
         } catch (err) {
-            console.log(err)
             setStatus({
                 type: "error",
                 message: err.errors
