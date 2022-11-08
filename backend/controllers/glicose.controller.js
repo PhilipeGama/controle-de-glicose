@@ -1,3 +1,4 @@
+const moment = require('moment')
 const glicoseService = require('../services/glicose.service')
 
 exports.get = async (req, res, next) => {
@@ -18,9 +19,10 @@ exports.uploadFile = async (req, res, next) => {
         if (str[i][0] === '') {
             break
         }
+        console.log(moment(str[i][1] + ' ' + str[i][2]))
         const glicose = {
-            data: str[i][1],
-            hora: str[i][2],
+            cpf: str[i][0],
+            datahora: moment(str[i][1] + ' ' + str[i][2]),
             nivel: parseInt(str[i][3]),
         }
 

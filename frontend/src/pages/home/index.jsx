@@ -17,10 +17,10 @@ const Home = () => {
       <h1>CONTROLE DE GLICOSE</h1>
       <Link className="btn btn-primary" to="/measure-glicose">MEDIR GLICOSE</Link>
       <Link className="btn btn-primary">AGENDAR MEDIÇÃO</Link>
-      <Link className="btn btn-primary">CONSULTAR MEDIÇÕES</Link>
+      <Link className="btn btn-primary" to="/consult-measurements">CONSULTAR MEDIÇÕES</Link>
       <Link className="btn btn-primary">ENVIAR MEDIÇÃO</Link>
       <Link className="btn btn-primary">GERAR RELATÓRIO</Link>
-      <Link className="btn btn-danger" onClick={() => handleLogout()}>SAIR</Link>
+      <button className="btn btn-danger" onClick={() => handleLogout()}>SAIR</button>
     </div>
   );
 };

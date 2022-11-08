@@ -26,7 +26,7 @@ exports.login = async (email, password) => {
 
     if (passwordMatch) {
         const token = jwt.sign({ id, email, name }, secret, {
-            expiresIn: '30s',
+            expiresIn: '2h',
         })
         return token
     }

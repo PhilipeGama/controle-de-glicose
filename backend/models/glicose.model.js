@@ -8,12 +8,17 @@ const Glicose = sequelize.define('glicose', {
         autoIncrement: true,
         primaryKey: true,
     },
-    data: Sequelize.STRING,
-    hora: {
+    cpf: {
         type: Sequelize.STRING,
-        unique: false,
-        allowNull: false,
     },
+    datahora: {
+        type: Sequelize.DATE,
+    },
+    // hora: {
+    //     type: Sequelize.STRING,
+    //     unique: false,
+    //     allowNull: false,
+    // },
     nivel: {
         type: Sequelize.INTEGER,
         allowNull: false,

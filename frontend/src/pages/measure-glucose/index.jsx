@@ -15,17 +15,12 @@ const MeasureGlucose = () => {
 
   const changeHandler = (event) => {
     if(event.target.files.length === 0) return;
-
     setSeletedFile(event.target.files[0]);
     setIsSelected(true);
-
   };
 
   const handleSubmission = () => {
-
-
     const formData = new FormData();
-
     formData.append("file", selectedFile);
 
     api.post("/upload", formData).then((response) => {
@@ -35,7 +30,6 @@ const MeasureGlucose = () => {
       }, 4000)
   
     });
-
   };
 
   return (
@@ -77,9 +71,8 @@ const MeasureGlucose = () => {
           </tbody>
         </table>
       ) : (
-        <p>Select a file to show details</p>
+        <p>Selecione um arquivo para subir</p>
       )}
-
       <div className="btn-container">
         <button className="btn btn-success" onClick={handleSubmission} style={{marginRight: '10px'}}>Enviar dados</button>
         <Link className="btn btn-danger" to="/">Voltar</Link>
