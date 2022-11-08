@@ -6,6 +6,6 @@ const glicoseController = require('../controllers/glicose.controller')
 
 routers.post('/upload', glicoseController.uploadFile)
 
-routers.get('/teste', glicoseController.get)
+routers.get('/glicoses', glicoseController.get)
 
 module.exports = routers

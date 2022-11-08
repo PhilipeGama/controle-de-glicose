@@ -1,3 +1,7 @@
 .container {
     height: 50vh;
 }
+
+.btn-container {
+    margin: 10px;
+}

@@ -1,7 +1,8 @@
 const glicoseService = require('../services/glicose.service')
 
-exports.get = (req, res, next) => {
-    res.send('okay')
+exports.get = async (req, res, next) => {
+    const glicose = await glicoseService.findAll()
+    return res.send(glicose)
 }
 
 exports.uploadFile = async (req, res, next) => {
@@ -18,7 +19,6 @@ exports.uploadFile = async (req, res, next) => {
             break
         }
         const glicose = {
-            id: parseInt(str[i][0]),
             data: str[i][1],
             hora: str[i][2],
             nivel: parseInt(str[i][3]),

@@ -1,26 +1,39 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
-import FileUploadTable from "../../shared/components/file-upload-table";
 import api from "../../services/api";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const MeasureGlucose = () => {
   const [selectedFile, setSeletedFile] = useState();
   //const [isFilePicked, setIsFilePicked] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
+  const navigate = useNavigate();
+  const notify = () => toast("Arquivo salvo com sucesso!");
 
   const changeHandler = (event) => {
+    if(event.target.files.length === 0) return;
+
     setSeletedFile(event.target.files[0]);
     setIsSelected(true);
+
   };
 
   const handleSubmission = () => {
+
+
     const formData = new FormData();
 
     formData.append("file", selectedFile);
 
     api.post("/upload", formData).then((response) => {
-      console.log(response);
+      notify()
+      setTimeout(() => {
+        navigate("/")
+      }, 4000)
+  
     });
 
   };
@@ -42,14 +55,9 @@ const MeasureGlucose = () => {
             htmlFor="inputGroupFile02"
             aria-describedby="inputGroupFileAddon02"
           >
-            Choose file
+            Escolhar o arquivo
           </label>
         </div>
-        {/* <div className="input-group-append">
-          <span className="input-group-text" id="inputGroupFileAddon02">
-            Upload
-          </span>
-        </div> */}
       </div>
       {isSelected ? (
         <table className="table">
@@ -69,22 +77,14 @@ const MeasureGlucose = () => {
           </tbody>
         </table>
       ) : (
-        // <div>
-        //   <p>Nome do arquivo: {selectedFile.name}</p>
-        //   <p>Tipo do arquivo: {selectedFile.type}</p>
-        //   <p>Tamanho: {selectedFile.size}</p>
-        //   <p>
-        //     Data de modificação:{" "}
-        //     {selectedFile.lastModifiedDate.toLocaleDateString()}
-        //   </p>
-        // </div>
         <p>Select a file to show details</p>
       )}
 
-      <button onClick={handleSubmission}>Submit</button>
-      <button type="button" className="btn btn-danger">
-        <Link to="/">VOLTAR</Link>
-      </button>
+      <div className="btn-container">
+        <button className="btn btn-success" onClick={handleSubmission} style={{marginRight: '10px'}}>Enviar dados</button>
+        <Link className="btn btn-danger" to="/">Voltar</Link>
+      </div>
+      <ToastContainer />
     </div>
   );
 };

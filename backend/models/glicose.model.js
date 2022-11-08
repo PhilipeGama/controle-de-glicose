@@ -5,7 +5,7 @@ const sequelize = require('../utils/database')
 const Glicose = sequelize.define('glicose', {
     id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
     },
     data: Sequelize.STRING,

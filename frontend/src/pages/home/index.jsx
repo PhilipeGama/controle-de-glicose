@@ -15,12 +15,12 @@ const Home = () => {
   return (
     <div className="container d-flex flex-column">
       <h1>CONTROLE DE GLICOSE</h1>
-      <button type="button" className="btn btn-primary"><Link to="/measure-glicose">MEDIR GLICOSE</Link></button>
-      <button type="button" className="btn btn-primary">AGENDAR MEDIÇÃO</button>
-      <button type="button" className="btn btn-primary">CONSULTAR MEDIÇÕES</button>
-      <button type="button" className="btn btn-primary">ENVIAR MEDIÇÃO</button>
-      <button type="button" className="btn btn-primary">GERAR RELATÓRIO</button>
-      <button type="button" className="btn btn-danger" onClick={() => handleLogout()}>SAIR</button>
+      <Link className="btn btn-primary" to="/measure-glicose">MEDIR GLICOSE</Link>
+      <Link className="btn btn-primary">AGENDAR MEDIÇÃO</Link>
+      <Link className="btn btn-primary">CONSULTAR MEDIÇÕES</Link>
+      <Link className="btn btn-primary">ENVIAR MEDIÇÃO</Link>
+      <Link className="btn btn-primary">GERAR RELATÓRIO</Link>
+      <Link className="btn btn-danger" onClick={() => handleLogout()}>SAIR</Link>
     </div>
   );
 };
