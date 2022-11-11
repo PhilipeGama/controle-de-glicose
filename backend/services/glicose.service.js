@@ -17,3 +17,15 @@ exports.findAll = async () => {
         return error
     }
 }
+
+exports.findAllPaginated = async () => {
+    try {
+        return await Glicose.findAndCountAll({
+            limit: 5,
+            offset: 10,
+        })
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}

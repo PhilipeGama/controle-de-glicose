@@ -6,6 +6,12 @@ exports.get = async (req, res, next) => {
     return res.send(glicose)
 }
 
+exports.getPaginated = async (req, res, next) => {
+    console.log(req.query)
+    const glicose = await glicoseService.findAllPaginated()
+    return res.send(glicose)
+}
+
 exports.uploadFile = async (req, res, next) => {
     let str = req.files.file.data.toString('utf-8')
 
