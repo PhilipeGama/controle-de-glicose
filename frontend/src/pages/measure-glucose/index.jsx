@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const MeasureGlucose = () => {
   const [selectedFile, setSeletedFile] = useState();
-  //const [isFilePicked, setIsFilePicked] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const navigate = useNavigate();
   const notify = () => toast("Arquivo salvo com sucesso!");

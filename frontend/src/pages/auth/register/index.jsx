@@ -9,7 +9,6 @@ const Register = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        //if(validateForm()) return;
 
         try {
             await signUp(inputs.name, inputs.email, inputs.password)

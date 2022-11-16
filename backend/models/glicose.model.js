@@ -11,14 +11,12 @@ const Glicose = sequelize.define('glicose', {
     cpf: {
         type: Sequelize.STRING,
     },
-    datahora: {
-        type: Sequelize.DATE,
+    examDate: {
+        type: Sequelize.DATEONLY,
     },
-    // hora: {
-    //     type: Sequelize.STRING,
-    //     unique: false,
-    //     allowNull: false,
-    // },
+    examHour: {
+        type: Sequelize.STRING,
+    },
     nivel: {
         type: Sequelize.INTEGER,
         allowNull: false,

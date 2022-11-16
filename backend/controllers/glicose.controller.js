@@ -8,7 +8,7 @@ exports.get = async (req, res, next) => {
 
 exports.getPaginated = async (req, res, next) => {
     console.log(req.query)
-    const glicose = await glicoseService.findAllPaginated()
+    const glicose = await glicoseService.findAllPaginated(req.query, req.body)
     return res.send(glicose)
 }
 
@@ -25,10 +25,10 @@ exports.uploadFile = async (req, res, next) => {
         if (str[i][0] === '') {
             break
         }
-        console.log(moment(str[i][1] + ' ' + str[i][2]))
         const glicose = {
             cpf: str[i][0],
-            datahora: moment(str[i][1] + ' ' + str[i][2]),
+            examDate: new Date(str[i][1]),
+            examHour: str[i][2],
             nivel: parseInt(str[i][3]),
         }
 

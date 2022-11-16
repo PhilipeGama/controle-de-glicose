@@ -8,6 +8,6 @@ routers.post('/upload', glicoseController.uploadFile)
 
 routers.get('/glicoses', glicoseController.get)
 
-routers.get('/glicoses-paginated', glicoseController.getPaginated)
+routers.post('/glicoses-paginated', glicoseController.getPaginated)
 
 module.exports = routers
