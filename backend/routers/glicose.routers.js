@@ -6,8 +6,10 @@ const glicoseController = require('../controllers/glicose.controller')
 
 routers.post('/upload', glicoseController.uploadFile)
 
-routers.get('/glicoses', glicoseController.get)
+routers.get('/glucoses', glicoseController.get)
 
-routers.post('/glicoses-paginated', glicoseController.getPaginated)
+routers.post('/glucoses-paginated', glicoseController.getPaginated)
+
+routers.get('/send-glucoses-by-email', glicoseController.sendGlucosesByEmail)
 
 module.exports = routers

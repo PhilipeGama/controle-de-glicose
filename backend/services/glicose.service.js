@@ -1,10 +1,11 @@
 const Glicose = require('../models/glicose.model')
+const { Parser } = require('json2csv')
+var fs = require('fs')
 
 exports.save = async (glicose) => {
     try {
         return await Glicose.bulkCreate(glicose)
     } catch (error) {
-        console.log(error)
         return error
     }
 }
@@ -17,18 +18,16 @@ exports.findAll = async () => {
     }
 }
 
-exports.findAllPaginated = async (params, body) => {
+exports.findAllPaginated = async (params, body, cpf) => {
     try {
         const { page, limit } = params
-        const { cpf, examDate, examHour } = body
+        const { examDate, examHour } = body
         let result
         let filterObj
 
-        if (cpf) {
-            filterObj = {
-                ...filterObj,
-                cpf: cpf,
-            }
+        filterObj = {
+            ...filterObj,
+            cpf: cpf,
         }
 
         if (examDate) {
@@ -70,6 +69,34 @@ exports.findAllPaginated = async (params, body) => {
         }
         return data
     } catch (error) {
-        console.log(error)
+        return error
+    }
+}
+
+exports.sendGlucosesByEmail = async () => {
+    const fields = ['id', 'cpf', 'examDate', 'examHour', 'nivel']
+    const opts = { fields }
+
+    try {
+        const result = await Glicose.findAll()
+
+        const parser = new Parser(opts)
+        const csv = parser.parse(result)
+
+        const filename = 'csv1.csv'
+        fs.writeFile('./exports/' + filename, csv, function (err) {
+            if (err) throw err
+            let message = {
+                attachments: [
+                    {
+                        filename: '',
+                    },
+                ],
+            }
+        })
+
+        return csv
+    } catch (err) {
+        console.error(err)
     }
 }

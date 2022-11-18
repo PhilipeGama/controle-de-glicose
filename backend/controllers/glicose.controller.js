@@ -1,5 +1,6 @@
 const moment = require('moment')
 const glicoseService = require('../services/glicose.service')
+const jwt = require('jsonwebtoken')
 
 exports.get = async (req, res, next) => {
     const glicose = await glicoseService.findAll()
@@ -7,13 +8,21 @@ exports.get = async (req, res, next) => {
 }
 
 exports.getPaginated = async (req, res, next) => {
-    console.log(req.query)
-    const glicose = await glicoseService.findAllPaginated(req.query, req.body)
+    const token = req.headers.authoraization.split(' ')[1]
+    const cpf = jwt.decode(token).cpf
+    const glicose = await glicoseService.findAllPaginated(
+        req.query,
+        req.body,
+        cpf
+    )
     return res.send(glicose)
 }
 
 exports.uploadFile = async (req, res, next) => {
     let str = req.files.file.data.toString('utf-8')
+
+    const token = req.headers.authoraization.split(' ')[1]
+    const cpf = jwt.decode(token).cpf
 
     str = str.split('\n').map((str) => {
         return str.split(',')
@@ -26,7 +35,7 @@ exports.uploadFile = async (req, res, next) => {
             break
         }
         const glicose = {
-            cpf: str[i][0],
+            cpf: cpf,
             examDate: new Date(str[i][1]),
             examHour: str[i][2],
             nivel: parseInt(str[i][3]),
@@ -40,4 +49,9 @@ exports.uploadFile = async (req, res, next) => {
     } catch (error) {
         res.send(error)
     }
+}
+
+exports.sendGlucosesByEmail = async (req, res, next) => {
+    const result = await glicoseService.sendGlucosesByEmail()
+    res.send(result)
 }

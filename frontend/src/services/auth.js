@@ -31,9 +31,9 @@ export const signIn = async (email, password) => {
   }
 };
 
-export const signUp = async (name, email, password) => {
+export const signUp = async (name, cpf, email, password) => {
   try {
-    await api.post("/signup", { name, email, password });
+    await api.post("/signup", { name, cpf, email, password });
   } catch (error) {
     return false;
   }

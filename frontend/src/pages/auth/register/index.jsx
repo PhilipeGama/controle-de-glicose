@@ -1,18 +1,32 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../../../services/auth";
 import * as yup from "yup";
 
 const Register = () => {
     const [inputs, setInputs] = useState({})
     const [status, setStatus] = useState({})
+    const navigate = useNavigate()
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        try {
-            await signUp(inputs.name, inputs.email, inputs.password)
-        } catch (error) { }
+        if(await validateForm() === true){
+            if(inputs.password !== inputs.confirmPassword) {
+                setStatus({
+                    type: "error",
+                    message: 'Senhas diferentes'
+                })
+                return;
+            }
+            try {
+                await signUp(inputs.name,inputs.cpf, inputs.email, inputs.password)
+                navigate("/login")
+            } catch (error) {
+                return error;
+             }
+        }
+
     }
 
     const handleChange = (event) => {
@@ -26,6 +40,7 @@ const Register = () => {
             confirmPassword: yup.string("Confirmar senha obrigatória!").required("Confirmar senha obrigatória!"),
             password: yup.string("Senha obrigatória!").required("Senha obrigatória!"),
             email: yup.string("Email obrigatório!").email("Email inválido!").required("Email inválido!"),
+            cpf: yup.string("CPF obrigatório!").required("CPF inválido!"),
             name: yup.string("Nome obrigatório!").required("Nome inválido!"),
         });
         try {
@@ -48,9 +63,20 @@ const Register = () => {
                     <label className="form-label" htmlFor="name">Nome</label>
                     <input 
                         className="form-control"  
-                        type="name" 
+                        type="text" 
                         name="name" 
                         value={inputs.name || ""} 
+                        onChange={handleChange} 
+                    />
+                </div>
+
+                <div className="form-outline mb-4">
+                    <label className="form-label" htmlFor="name">CPF</label>
+                    <input 
+                        className="form-control"  
+                        type="text" 
+                        name="cpf" 
+                        value={inputs.cpf || ""} 
                         onChange={handleChange} 
                     />
                 </div>
@@ -81,7 +107,7 @@ const Register = () => {
                     <label className="form-label" htmlFor="confirmPassword">Confirma Senha</label>
                     <input 
                         className="form-control"  
-                        type="confirmPassword" 
+                        type="password" 
                         name="confirmPassword" 
                         value={inputs.confirmPassword || ""} 
                         onChange={handleChange} 

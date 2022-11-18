@@ -3,6 +3,7 @@
     gap: 20px;
     align-self: flex-end;
 }
+
 .item {
     align-items: center;
     color: #fff;
@@ -24,21 +25,13 @@
     color: #808e9b;
 }
 
-.break-me {
-}
-
 .next {
-    border-left: solid 1px #808e9b;
     height: 60px;
-    position: absolute;
     right: 0;
-    width: 150px;
 }
 
 .pagination {
     align-items: center;
-    // background-color: #0fbcf9;
-    border: 2px solid #0fbcf9;
     display: flex;
     flex-direction: row;
     height: 60px;
@@ -53,9 +46,6 @@
 }
 
 .previous {
-    border-right: solid 1px #808e9b;
     height: 60px;
     left: 0;
-    position: absolute;
-    width: 150px;
 }
