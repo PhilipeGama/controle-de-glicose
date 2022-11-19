@@ -7,7 +7,7 @@ import Moment from 'moment';
 
 import "./styles.scss"
 
-const ConsultMeasurements = () => {
+const ConsultGlucose = () => {
   const [data, setData] = useState([])
   const [meta, setMeta] = useState([])
   const [filters, setFilters] = useState({examDate: '', examHour: ''})
@@ -104,4 +104,4 @@ const ConsultMeasurements = () => {
   )
 }
 
-export default ConsultMeasurements;
+export default ConsultGlucose;

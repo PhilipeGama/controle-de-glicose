@@ -1,5 +1,7 @@
 const Glicose = require('../models/glicose.model')
 const { Parser } = require('json2csv')
+const { Op } = require('sequelize')
+
 var fs = require('fs')
 
 exports.save = async (glicose) => {
@@ -13,6 +15,35 @@ exports.save = async (glicose) => {
 exports.findAll = async () => {
     try {
         return await Glicose.findAll()
+    } catch (error) {
+        return error
+    }
+}
+
+exports.findAllQt = async (id) => {
+    try {
+        const glicosesQt121 = await Glicose.count({
+            where: {
+                userId: id,
+                nivel: {
+                    [Op.gt]: [150],
+                },
+            },
+        })
+
+        const glicosesQt200 = await Glicose.count({
+            where: {
+                userId: id,
+                nivel: {
+                    [Op.gt]: [150],
+                },
+            },
+        })
+
+        return {
+            glicosesQt121,
+            glicosesQt200,
+        }
     } catch (error) {
         return error
     }

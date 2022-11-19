@@ -27,6 +27,16 @@ exports.getPaginated = async (req, res, next) => {
     }
 }
 
+exports.getGreaterThen = async (req, res, next) => {
+    try {
+        const userId = jwt.decode(req.headers['x-access-token']).id
+        const glicose = await glicoseService.findAllQt(userId)
+        return res.send({ glicoses: glicose })
+    } catch (error) {
+        return
+    }
+}
+
 exports.uploadFile = async (req, res, next) => {
     try {
         let str = req.files.file.data.toString('utf-8')

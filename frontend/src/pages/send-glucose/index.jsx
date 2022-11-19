@@ -1,4 +1,6 @@
-const SendMeasurements = () => {
+import { Link } from "react-router-dom";
+
+const SendGlucose = () => {
     return(
         <div className="container">
             <h1>Enviar Medição</h1>
@@ -10,10 +12,11 @@ const SendMeasurements = () => {
                         name="name" 
                    
                     />
-                <button className="btn btn-success">Enviar</button>    
+                <button className="btn btn-success">Enviar</button>  
+                <Link className="btn btn-danger" to="/">Voltar</Link>  
                 </div>
         </div>
     )
 }
 
-export default SendMeasurements; 
+export default SendGlucose; 
