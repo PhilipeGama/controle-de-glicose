@@ -18,7 +18,7 @@ exports.findAll = async () => {
     }
 }
 
-exports.findAllPaginated = async (params, body, cpf) => {
+exports.findAllPaginated = async (params, body, userId) => {
     try {
         const { page, limit } = params
         const { examDate, examHour } = body
@@ -27,7 +27,7 @@ exports.findAllPaginated = async (params, body, cpf) => {
 
         filterObj = {
             ...filterObj,
-            cpf: cpf,
+            userId: userId,
         }
 
         if (examDate) {
@@ -74,7 +74,7 @@ exports.findAllPaginated = async (params, body, cpf) => {
 }
 
 exports.sendGlucosesByEmail = async () => {
-    const fields = ['id', 'cpf', 'examDate', 'examHour', 'nivel']
+    const fields = ['id', 'examDate', 'examHour', 'nivel']
     const opts = { fields }
 
     try {
@@ -97,6 +97,6 @@ exports.sendGlucosesByEmail = async () => {
 
         return csv
     } catch (err) {
-        console.error(err)
+        return error
     }
 }

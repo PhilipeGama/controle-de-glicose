@@ -8,9 +8,6 @@ const Glicose = sequelize.define('glicose', {
         autoIncrement: true,
         primaryKey: true,
     },
-    cpf: {
-        type: Sequelize.STRING,
-    },
     examDate: {
         type: Sequelize.DATEONLY,
     },
@@ -20,6 +17,9 @@ const Glicose = sequelize.define('glicose', {
     nivel: {
         type: Sequelize.INTEGER,
         allowNull: false,
+    },
+    userId: {
+        type: Sequelize.INTEGER,
     },
 })
 

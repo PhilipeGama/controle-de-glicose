@@ -50,6 +50,6 @@ exports.destroy = async (id) => {
             },
         })
     } catch (error) {
-        return null
+        return error
     }
 }

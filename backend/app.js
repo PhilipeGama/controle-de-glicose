@@ -17,6 +17,8 @@ app.use(fileUpload())
 const userRoutes = require('./routers/user.routers')
 const authRoutes = require('./routers/auth.routers')
 const glicoseRoutes = require('./routers/glicose.routers')
+const User = require('./models/user.model')
+const Glicose = require('./models/glicose.model')
 
 app.use(userRoutes)
 app.use(authRoutes)
@@ -26,4 +28,7 @@ app.listen(PORT, () => {
     console.log(`Running on ${PORT} ...`)
 })
 
-sequelize.sync().then((result) => {})
+User.hasMany(Glicose)
+Glicose.belongsTo(User, { foreignKey: 'userId' })
+
+sequelize.sync()

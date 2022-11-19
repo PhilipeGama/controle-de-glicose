@@ -4,12 +4,16 @@ const routers = express.Router()
 
 const glicoseController = require('../controllers/glicose.controller')
 
-routers.post('/upload', glicoseController.uploadFile)
+routers.post('/upload', verifyJWT, glicoseController.uploadFile)
 
-routers.get('/glucoses', glicoseController.get)
+routers.get('/glucoses', verifyJWT, glicoseController.get)
 
-routers.post('/glucoses-paginated', glicoseController.getPaginated)
+routers.post('/glucoses-paginated', verifyJWT, glicoseController.getPaginated)
 
-routers.get('/send-glucoses-by-email', glicoseController.sendGlucosesByEmail)
+routers.get(
+    '/send-glucoses-by-email',
+    verifyJWT,
+    glicoseController.sendGlucosesByEmail
+)
 
 module.exports = routers
