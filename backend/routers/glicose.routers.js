@@ -8,7 +8,7 @@ routers.post('/upload', verifyJWT, glicoseController.uploadFile)
 
 routers.get('/glucoses', verifyJWT, glicoseController.get)
 
-routers.get('/glucoses-qt', verifyJWT, glicoseController.getGreaterThen)
+routers.get('/glucoses-count', verifyJWT, glicoseController.getGreaterThen)
 
 routers.post('/glucoses-paginated', verifyJWT, glicoseController.getPaginated)
 

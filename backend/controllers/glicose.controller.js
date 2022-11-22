@@ -30,8 +30,8 @@ exports.getPaginated = async (req, res, next) => {
 exports.getGreaterThen = async (req, res, next) => {
     try {
         const userId = jwt.decode(req.headers['x-access-token']).id
-        const glicose = await glicoseService.findAllQt(userId)
-        return res.send({ glicoses: glicose })
+        const glucose = await glicoseService.findAllQt(userId)
+        return res.send({ glucoses: glucose })
     } catch (error) {
         return
     }

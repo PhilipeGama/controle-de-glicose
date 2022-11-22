@@ -22,27 +22,54 @@ exports.findAll = async () => {
 
 exports.findAllQt = async (id) => {
     try {
-        const glicosesQt121 = await Glicose.count({
+        const glucose_LT75 = await Glicose.count({
             where: {
                 userId: id,
                 nivel: {
-                    [Op.gt]: [150],
+                    [Op.lte]: 70,
                 },
             },
         })
 
-        const glicosesQt200 = await Glicose.count({
+        const glucose_LT99 = await Glicose.count({
             where: {
                 userId: id,
                 nivel: {
-                    [Op.gt]: [150],
+                    [Op.and]: [{ [Op.gt]: 70 }, { [Op.lt]: 99 }],
                 },
+            },
+        })
+
+        const glucose_GT99_LT125 = await Glicose.count({
+            where: {
+                userId: id,
+                nivel: {
+                    [Op.and]: [{ [Op.gte]: 99 }, { [Op.lte]: 125 }],
+                },
+            },
+        })
+
+        const glucose_GT126 = await Glicose.count({
+            where: {
+                userId: id,
+                nivel: {
+                    [Op.gte]: 126,
+                },
+            },
+        })
+
+        const glucose_TOT = await Glicose.count({
+            where: {
+                userId: id,
             },
         })
 
         return {
-            glicosesQt121,
-            glicosesQt200,
+            glucose_LT75,
+            glucose_LT99,
+            glucose_GT99_LT125,
+            glucose_GT126,
+            glucose_TOT,
         }
     } catch (error) {
         return error
@@ -92,12 +119,13 @@ exports.findAllPaginated = async (params, body, userId) => {
         const data = {
             data: resultRows,
             meta: {
-                totalItems: result.count,
-                itemsPerPage: parseInt(limit),
-                currentPage: parseInt(page),
-                totalPage: parseInt(result.count / limit),
+                totalItems: Math.ceil(result.count),
+                itemsPerPage: Math.ceil(limit),
+                currentPage: Math.ceil(page),
+                totalPage: Math.ceil(result.count / limit),
             },
         }
+        console.log(data)
         return data
     } catch (error) {
         return error

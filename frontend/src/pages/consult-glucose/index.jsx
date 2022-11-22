@@ -9,7 +9,7 @@ import "./styles.scss"
 
 const ConsultGlucose = () => {
   const [data, setData] = useState([])
-  const [meta, setMeta] = useState([])
+  const [meta, setMeta] = useState({totalPage: 0})
   const [filters, setFilters] = useState({examDate: '', examHour: ''})
   const limit = 10;
 
@@ -19,7 +19,7 @@ const ConsultGlucose = () => {
       setData(response.data.data)
       setMeta(response.data.meta)
     })
-  }, [])
+  }, [filters])
 
   const handleInputs = (event) => {
     const name = event.target.name
@@ -61,10 +61,9 @@ const ConsultGlucose = () => {
         <table className="table">
         <thead>
           <tr>
-            <th scope="col">Id</th>
-
-            <th scope="col">Data do Exame</th>
-            <th scope="col">Nivel</th>
+            <th>Id</th>
+            <th>Data do Exame</th>
+            <th>Nivel</th>
           </tr>
         </thead>
         <tbody className="table-body">
