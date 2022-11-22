@@ -21,7 +21,9 @@ const Login = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         
-        if(!validateForm()) return
+        if(await validateForm() === false) {
+            return
+        }
 
         try {
             const isAuth = await signIn(inputs.email, inputs.password);  
@@ -41,9 +43,8 @@ const Login = () => {
 
     const validateForm = async () => {
         let schema = yup.object().shape({
-            password: yup.string("Senha obrigatória!").required("Senha obrigatória!"),
-            email: yup.string("Email obrigatório!").email("Email inválido!").required("Email inválido!"),
-
+            password: yup.string("Senha inválido!").required("Senha obrigatória!"),
+            email: yup.string("Email obrigatório!").required("Email obrigátorio!").email("Email inválido!"),
         });
         try {
             await schema.validate(inputs);

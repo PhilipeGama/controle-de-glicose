@@ -125,7 +125,6 @@ exports.findAllPaginated = async (params, body, userId) => {
                 totalPage: Math.ceil(result.count / limit),
             },
         }
-        console.log(data)
         return data
     } catch (error) {
         return error

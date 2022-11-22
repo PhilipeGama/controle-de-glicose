@@ -12,6 +12,16 @@ exports.findAll = async () => {
     }
 }
 
+exports.findByEmail = async (email) => {
+    try {
+        return await User.findOne({
+            where: {
+                email: email,
+            },
+        })
+    } catch (error) {}
+}
+
 exports.save = async (user) => {
     try {
         const hash = await bcrypt.hash(user.password, 10)

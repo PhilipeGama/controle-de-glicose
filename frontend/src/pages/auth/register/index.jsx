@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../../../services/auth";
 import * as yup from "yup";
+import { isValidCPF } from "../../../shared/commom/utils";
+import { IMaskInput } from "react-imask";
+
 
 const Register = () => {
     const [inputs, setInputs] = useState({})
@@ -35,13 +38,23 @@ const Register = () => {
         setInputs(values =>({...values, [name]: value }))
     }
 
+    yup.addMethod(yup.string, "isValidCpf", function (errorMessage) {
+        return this.test(`test-card-type`, errorMessage, function (value) {
+          const { path, createError } = this;
+          return (
+            isValidCPF(value) === true ||
+            createError({ path, message: errorMessage })
+          );
+        });
+    });
+
     const validateForm = async () => {
         let schema = yup.object().shape({
             confirmPassword: yup.string("Confirmar senha obrigatória!").required("Confirmar senha obrigatória!"),
             password: yup.string("Senha obrigatória!").required("Senha obrigatória!"),
             email: yup.string("Email obrigatório!").email("Email inválido!").required("Email inválido!"),
-            cpf: yup.string("CPF obrigatório!").required("CPF inválido!"),
-            name: yup.string("Nome obrigatório!").required("Nome inválido!"),
+            cpf: yup.string("CPF obrigatório!").required("CPF obrigatório!").isValidCpf("CPF inválido"),
+            name: yup.string("Nome obrigatório!").required("Nome obrigatório!"),
         });
         try {
             await schema.validate(inputs);
@@ -69,15 +82,15 @@ const Register = () => {
                         onChange={handleChange} 
                     />
                 </div>
-
                 <div className="form-outline mb-4">
                     <label className="form-label" htmlFor="name">CPF</label>
-                    <input 
-                        className="form-control"  
-                        type="text" 
+                    <IMaskInput
+                        className="form-control" 
+                        mask="000.000.000-00"
                         name="cpf" 
                         value={inputs.cpf || ""} 
                         onChange={handleChange} 
+                        placeholder="Digite o seu CPF"
                     />
                 </div>
 

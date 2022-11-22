@@ -54,13 +54,20 @@ exports.uploadFile = async (req, res, next) => {
                 break
             }
             const glicose = {
-                examDate: new Date(str[i][1]),
-                examHour: str[i][2],
-                nivel: parseInt(str[i][3]),
+                examDate: new Date(str[i][0]),
+                examHour: str[i][1],
+                nivel: parseInt(str[i][2]),
                 userId: userId,
             }
-
-            glicoses.push(glicose)
+            if (
+                glicose.examDate == 'Invalid Date' ||
+                glicose.examDate == ' ' ||
+                glicose.examHour == ' ' ||
+                glicose.nivel == ' '
+            ) {
+            } else {
+                glicoses.push(glicose)
+            }
         }
 
         const saveGlicose = await glicoseService.save(glicoses)

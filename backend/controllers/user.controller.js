@@ -1,4 +1,5 @@
 const userService = require('../services/user.service')
+const { validationResult, body } = require('express-validator')
 
 exports.get = async (req, res, next) => {
     try {
@@ -25,6 +26,12 @@ exports.get = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {
     try {
+        const errors = validationResult(req)
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() })
+        }
+
         const userCreated = await userService.save(req.body)
 
         if (!userCreated) {

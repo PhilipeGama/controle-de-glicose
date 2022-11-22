@@ -9,13 +9,20 @@ import './styles.scss';
 
 
 const ReportGlucose = () => {
-    const [glucose, setGlucose] = useState([])
+    const [glucose, setGlucose] = useState(
+        { 
+            nivel1: 1,
+            nivel2: 1,
+            nivel3: 1,
+            nivel4: 1,
+            total: 1 
+        }
+    )
 
     useEffect(() => {
         api.get(`/glucoses-count`).then((response) => {
             const { glucose_LT75, glucose_LT99, glucose_GT99_LT125, glucose_GT126, glucose_TOT } = response.data.glucoses;
             setGlucose({ nivel1: glucose_LT99, nivel2: glucose_GT99_LT125, nivel3: glucose_GT126, nivel4: glucose_LT75, total: glucose_TOT })
-            console.log(glucose)
           })
     }, [])
 
@@ -41,7 +48,7 @@ const ReportGlucose = () => {
 
                 <div className="chart-container">
                     <RadialChartGlucoses glucose={glucose}/>
-                    {/* <TurnedAxisGlucoses glucose={glucose}/> */}
+                    <TurnedAxisGlucoses glucose={glucose}/>
                 </div>
   
                 <Link className="btn btn-danger" to="/">Voltar</Link>
