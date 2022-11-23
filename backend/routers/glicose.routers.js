@@ -12,7 +12,7 @@ routers.get('/glucoses-count', verifyJWT, glicoseController.getGreaterThen)
 
 routers.post('/glucoses-paginated', verifyJWT, glicoseController.getPaginated)
 
-routers.get(
+routers.post(
     '/send-glucoses-by-email',
     verifyJWT,
     glicoseController.sendGlucosesByEmail

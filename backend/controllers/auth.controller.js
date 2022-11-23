@@ -1,5 +1,5 @@
 const authService = require('../services/auth.service')
-const { body, validationResult } = require('express-validator')
+const { validationResult } = require('express-validator')
 
 exports.login = async (req, res, next) => {
     try {

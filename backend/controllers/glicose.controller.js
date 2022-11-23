@@ -79,7 +79,11 @@ exports.uploadFile = async (req, res, next) => {
 
 exports.sendGlucosesByEmail = async (req, res, next) => {
     try {
-        const result = await glicoseService.sendGlucosesByEmail()
+        const userId = jwt.decode(req.headers['x-access-token']).id
+        const result = await glicoseService.sendGlucosesByEmail(
+            req.body.email,
+            userId
+        )
         res.send(result)
     } catch (error) {
         return error
